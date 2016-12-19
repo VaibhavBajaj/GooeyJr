@@ -23,15 +23,23 @@ jokeList = [
             ["If you understand English, press 1. If you do not understand English, press 2.", "Get it? :D"]
       ]
 
+#userEnteredJokeList = robot.brain.get('jokeList')
+
+#if robot.brain.get('jokeList') is not null
+#   jokeList.push robot.brain.get('jokeList')
+
 module.exports = (robot) ->
    robot.respond /Q:(.*)A:(.*)/, (msg) ->
       jokeFirstPart = msg.match[1]
       jokeSecondPart = msg.match[2]
       msg.send ":P. That is funny indeed. Saving it in memory..."
-      msg.send jokeFirstPart
       setTimeout () ->
-         msg.send jokeSecondPart
-      ,3000
+         msg.send "Done"
+      ,1000
+      tempJoke = [jokeFirstPart, jokeSecondPart]
+      jokeList.push tempJoke
+#      userEnteredJokeList.push tempJoke
+#      robot.brain.set('jokeList') userEnteredJokeList
 
    robot.respond /(.*)joke (.*)/i, (msg) ->
       msg.send "Joke? Joke! I know a JOKE!"
@@ -44,5 +52,9 @@ module.exports = (robot) ->
    robot.respond /how do i (save|store) jokes\?/i, (msg) ->
       msg.send "Please enter a two-part joke with 'S1:'' to indicate statement and 'S2:' to indicate concluding sentence like so:"
       msg.send "S1:Did you hear about the guy whose whole left side was cut off? S2: He's all right now."
-      
+
+   robot.respond /refresh jokes memory/i, (msg) ->
+#      robot.brain.set('jokeList') null
+#      userEnteredJokeList = []
+#      jokeList = jokeList[0..12]
          
