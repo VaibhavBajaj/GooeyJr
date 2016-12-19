@@ -23,12 +23,16 @@ jokeList = [
             ["If you understand English, press 1. If you do not understand English, press 2.", "Get it? :D"]
       ]
 
-#userEnteredJokeList = robot.brain.get('jokeList')
 
-#if robot.brain.get('jokeList') is not null
-#   jokeList.push robot.brain.get('jokeList')
 
 module.exports = (robot) ->
+   userEnteredJokeList = robot.brain.get('jokeList')
+
+   if robot.brain.get('jokeList') is not null
+      jokeList.push robot.brain.get('jokeList')
+
+   if userEnteredJokeList is null
+      userEnteredJokeList = []
    robot.respond /Q:(.*)A:(.*)/, (msg) ->
       jokeFirstPart = msg.match[1]
       jokeSecondPart = msg.match[2]
@@ -38,8 +42,9 @@ module.exports = (robot) ->
       ,1000
       tempJoke = [jokeFirstPart, jokeSecondPart]
       jokeList.push tempJoke
-#      userEnteredJokeList.push tempJoke
-#      robot.brain.set('jokeList') userEnteredJokeList
+      userEnteredJokeList.push tempJoke
+      robot.brain.set('jokeList') userEnteredJokeList
+      msg.send robot.brain.get('jokeList')
 
    robot.respond /(.*)joke[^s](.*)/i, (msg) ->
       msg.send "Joke? Joke! I know a JOKE!"
