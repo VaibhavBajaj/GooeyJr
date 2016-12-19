@@ -36,10 +36,7 @@ module.exports = (robot) ->
    robot.respond /.*Q:(.*)A:(.*)/, (msg) ->
       jokeFirstPart = msg.match[1]
       jokeSecondPart = msg.match[2]
-      msg.send ":P. That is funny indeed. Saving it in memory..."
-      setTimeout () ->
-         msg.send "Done"
-      ,1000
+      msg.send ":P. That is funny indeed. Saving it in memory... Done"
       tempJoke = [jokeFirstPart, jokeSecondPart]
       jokeList.push tempJoke
       userEnteredJokeList.push tempJoke
@@ -60,7 +57,8 @@ module.exports = (robot) ->
       msg.send "Q:Did you hear about the guy whose whole left side was cut off? A: He's all right now."
 
    robot.respond /refresh jokes memory/i, (msg) ->
-#      robot.brain.set('jokeList') null
+      msg.send "Clearing up data... Done"
+#      robot.brain.remove('jokeList')
 #      userEnteredJokeList = []
 #      jokeList = jokeList[0..12]
          
