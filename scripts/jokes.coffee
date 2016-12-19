@@ -44,8 +44,8 @@ module.exports = (robot) ->
       jokeList.push tempJoke
       userEnteredJokeList.push tempJoke
       robot.brain.set('jokeList') userEnteredJokeList
-      msg.send robot.brain.get('jokeList')
-      msg.send userEnteredJokeList
+      msg.send robot.brain.get('jokeList')[0]
+      msg.send userEnteredJokeList[0]
 
    robot.respond /(.*)joke[^s](.*)/i, (msg) ->
       msg.send "Joke? Joke! I know a JOKE!"
