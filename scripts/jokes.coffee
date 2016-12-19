@@ -41,7 +41,7 @@ module.exports = (robot) ->
 #      userEnteredJokeList.push tempJoke
 #      robot.brain.set('jokeList') userEnteredJokeList
 
-   robot.respond /(.*)joke (.*)/i, (msg) ->
+   robot.respond /.*joke .*/i, (msg) ->
       msg.send "Joke? Joke! I know a JOKE!"
       joke = msg.random jokeList
       msg.send joke[0]
@@ -49,9 +49,9 @@ module.exports = (robot) ->
          msg.send joke[1]
       ,4000
 
-   robot.respond /how do i (save|store) jokes\?/i, (msg) ->
-      msg.send "Please enter a two-part joke with 'S1:'' to indicate statement and 'S2:' to indicate concluding sentence like so:"
-      msg.send "S1:Did you hear about the guy whose whole left side was cut off? S2: He's all right now."
+   robot.respond /how do i save|store jokes\?/i, (msg) ->
+      msg.send "Please enter a two-part joke with 'Q:'' to indicate question and 'A:' to indicate concluding sentence like so:"
+      msg.send "Q:Did you hear about the guy whose whole left side was cut off? A: He's all right now."
 
    robot.respond /refresh jokes memory/i, (msg) ->
 #      robot.brain.set('jokeList') null
