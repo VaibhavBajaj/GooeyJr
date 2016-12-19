@@ -26,8 +26,8 @@ jokeList = [
 module.exports = (robot) ->
    robot.respond /Q:(.*)A:(.*)/, (msg) ->
       jokeFirstPart = msg.match[1]
-      jokeSecondPart = "Hi"
-      msg.send ":P. That is funny indeed."
+      jokeSecondPart = msg.match[2]
+      msg.send ":P. That is funny indeed. Saving it in memory..."
       msg.send jokeFirstPart
       setTimeout () ->
          msg.send jokeSecondPart
