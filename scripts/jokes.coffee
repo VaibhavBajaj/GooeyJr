@@ -37,8 +37,8 @@ module.exports = (robot) ->
       msg.send "S1:Did you hear about the guy whose whole left side was cut off? S2: He's all right now."
 
    robot.respond /Q:(.*)A:(.*)/, (msg) ->
-      jokeFirstPart = res.match[1]
-      jokeSecondPart = res.match[2]
+      jokeFirstPart = "Hi"
+      jokeSecondPart = "Hi"
       msg.send ":P. That is funny indeed."
       msg.send jokeFirstPart
       setTimeout () ->
