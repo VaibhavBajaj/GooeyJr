@@ -26,7 +26,7 @@ jokeList = [
 
 
 module.exports = (robot) ->
-   userEnteredJokeList = robot.brain.get('jokeList')
+#   userEnteredJokeList = robot.brain.get('jokeList')
 
 #   if robot.brain.get('jokeList') is not null
 #      jokeList.push robot.brain.get('jokeList')
@@ -39,10 +39,10 @@ module.exports = (robot) ->
       msg.send ":P. That is funny indeed. Saving it in memory... Done"
       tempJoke = [jokeFirstPart, jokeSecondPart]
       jokeList.push tempJoke
-      userEnteredJokeList.push tempJoke
-      robot.brain.set('jokeList') userEnteredJokeList
-      msg.send robot.brain.get('jokeList')[0]
-      msg.send userEnteredJokeList[0]
+ #     userEnteredJokeList.push tempJoke
+ #     robot.brain.set('jokeList') userEnteredJokeList
+ #     msg.send robot.brain.get('jokeList')[0]
+ #     msg.send userEnteredJokeList[0]
 
    robot.respond /(.*)joke[^s](.*)/i, (msg) ->
       msg.send "Joke? Joke! I know a JOKE!"
