@@ -24,25 +24,25 @@ jokeList = [
       ]
 
 
-
 module.exports = (robot) ->
-#   userEnteredJokeList = robot.brain.get('jokeList')
-
-#   if robot.brain.get('jokeList') is not null
-#      jokeList.push robot.brain.get('jokeList')
+   userEnteredJokeList = robot.brain.get('jokeList')
 
    if userEnteredJokeList is null
       userEnteredJokeList = []
+
+   for joke in userEnteredJokeList
+      jokeList.push joke
+
    robot.respond /.*Q:(.*)A:(.*)/, (msg) ->
       jokeFirstPart = msg.match[1]
       jokeSecondPart = msg.match[2]
       msg.send ":P. That is funny indeed. Saving it in memory... Done"
       tempJoke = [jokeFirstPart, jokeSecondPart]
       jokeList.push tempJoke
- #     userEnteredJokeList.push tempJoke
- #     robot.brain.set('jokeList') userEnteredJokeList
- #     msg.send robot.brain.get('jokeList')[0]
- #     msg.send userEnteredJokeList[0]
+      userEnteredJokeList.push tempJoke
+      msg.send userEnteredJokeList[0]
+      robot.brain.set('jokeList') userEnteredJokeList
+      msg.send userEnteredJokeList[0]
 
    robot.respond /(.*)joke[^s](.*)/i, (msg) ->
       msg.send "Joke? Joke! I know a JOKE!"
@@ -52,13 +52,13 @@ module.exports = (robot) ->
          msg.send joke[1]
       ,4000
 
-   robot.respond /how do i (save|store) jokes\?/i, (msg) ->
+   robot.respond /how (should|do|can) i (save|store|add) jokes.*/i, (msg) ->
       msg.send "Please enter a two-part joke with 'Q:'' to indicate question and 'A:' to indicate concluding sentence like so:"
       msg.send "Q:Did you hear about the guy whose whole left side was cut off? A: He's all right now."
 
    robot.respond /refresh jokes memory/i, (msg) ->
       msg.send "Clearing up data... Done"
-#      robot.brain.remove('jokeList')
-#      userEnteredJokeList = []
-#      jokeList = jokeList[0..12]
+      robot.brain.remove('jokeList')
+      userEnteredJokeList = []
+      jokeList = jokeList[0..12]
          
