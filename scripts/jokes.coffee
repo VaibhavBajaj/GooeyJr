@@ -34,6 +34,7 @@ module.exports = (robot) ->
       jokeList.push joke
 
    robot.respond /.*Q:(.*)A:(.*)/, (msg) ->
+      msg.send userEnteredJokeList
       jokeFirstPart = msg.match[1]
       jokeSecondPart = msg.match[2]
       msg.send ":P. That is funny indeed. Saving it in memory... Done"
@@ -41,7 +42,8 @@ module.exports = (robot) ->
       jokeList.push tempJoke
       userEnteredJokeList.push tempJoke
       msg.send userEnteredJokeList[0]
-      robot.brain.set('jokeList') userEnteredJokeList
+      robot.brain.set 'jokeList', userEnteredJokeList
+      userEnteredJokeList = robot.brain.get('jokeList')
       msg.send userEnteredJokeList[0]
 
    robot.respond /(.*)joke[^s](.*)/i, (msg) ->
