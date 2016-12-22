@@ -25,8 +25,7 @@ jokeList = [
 
 
 module.exports = (robot) ->
-   userEnteredJokeList = robot.brain.get('jokeList')
-
+   userEnteredJokeList = robot.brain.get 'jokeList'
    if userEnteredJokeList is null
       userEnteredJokeList = []
 
@@ -36,12 +35,14 @@ module.exports = (robot) ->
    robot.respond /.*Q:(.*)A:(.*)/, (msg) ->
       jokeFirstPart = msg.match[1]
       jokeSecondPart = msg.match[2]
-      msg.send ":P. That is funny indeed. Saving it in memory... Done"
       tempJoke = [jokeFirstPart, jokeSecondPart]
       jokeList.push tempJoke
       userEnteredJokeList.push tempJoke
       robot.brain.set 'jokeList', userEnteredJokeList
-      userEnteredJokeList = robot.brain.get('jokeList')
+      userEnteredJokeList = robot.brain.get 'jokeList'
+      msg.send ":P. That is funny indeed. Saving it in memory... Done"
+      msg.send userEnteredJokeList
+      msg.send robot.brain.get 'jokeList'
 
    robot.respond /(.*)joke[^s](.*)/i, (msg) ->
       msg.send "Joke? Joke! I know a JOKE!"
@@ -50,6 +51,7 @@ module.exports = (robot) ->
       setTimeout () ->
          msg.send joke[1]
       ,4000
+      msg.send userEnteredJokeList
 
    robot.respond /how (should|do|can) i (save|store|add) jokes.*/i, (msg) ->
       msg.send "Please enter a two-part joke with 'Q:'' to indicate question and 'A:' to indicate concluding sentence like so:"
@@ -57,7 +59,7 @@ module.exports = (robot) ->
 
    robot.respond /refresh jokes memory/i, (msg) ->
       msg.send "Clearing up data... Done"
-      robot.brain.remove('jokeList')
+      robot.brain.remove 'jokeList'
       userEnteredJokeList = []
       jokeList = jokeList[0..12]
          
